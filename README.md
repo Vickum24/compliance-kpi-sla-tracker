@@ -1,153 +1,150 @@
 # Compliance KPI & SLA Tracker
 
-A portfolio-ready web application for monitoring AML/KYC compliance performance, service level agreements (SLAs), and operational risk indicators in financial services.
+A portfolio-ready web application built around real AML, KYC, and compliance operations work. It helps teams monitor performance, evaluate service level adherence, and track exceptions across the control lifecycle.
 
-## Project purpose
-This project demonstrates how AML and compliance teams can track key operational metrics such as:
+## Why this project matters
+This project reflects the type of operational reporting and workflow visibility used across AML, sanctions screening, CDD/ODD processing, and transaction monitoring teams. It translates real-world compliance processes into a clean, professional dashboard designed for management reporting and operational oversight.
 
-- Customer Due Diligence (CDD) turnaround times
-- Ongoing Due Diligence (ODD) completion rate
-- Sanctions and PEP screening coverage
-- Transaction monitoring case aging
-- Suspicious Activity Report (SAR) timeliness
-- SLA compliance for investigation teams
-- Escalation and exception management
+## Problem it solves
+Compliance teams often work with fragmented spreadsheets, manual scorecards, and delayed reporting. This dashboard provides a central view of:
 
-## Why this is a strong portfolio project
-This project combines:
+- CDD/ODD turnaround performance
+- SLA adherence by team and function
+- High-risk alert aging
+- Screening completeness and exceptions
+- Reporting trend visibility over time
 
-- Regulatory/compliance domain expertise
-- Dashboard and reporting design
-- Data visualization
-- Frontend/backend integration
-- Business-focused analytics
+## Business value
+This dashboard demonstrates how operational controls can be monitored and improved through simple but effective business intelligence workflows. It is especially relevant to:
 
-It is highly relevant for FinTech, RegTech, AML, risk, and compliance roles.
+- AML / KYC operations teams
+- Compliance monitoring teams
+- RegTech and FinTech environments
+- Financial institutions and fund service organizations
 
-## Features
-- Executive overview dashboard
-- KPI summary cards with target vs actual percentage
-- SLA health tracker
-- Team performance breakdown
-- Alerts and overdue tasks panel
-- Trend visualization for weekly performance
-- Responsive layout for desktop and tablet devices
-- Mock API backend for realistic compliance data
+## Key features
+- Executive KPI summary cards
+- SLA compliance tracking
+- Weekly operational trends
+- Team performance scorecards
+- Exception and escalation reporting
+- Regional / functional risk view
+- Responsive dashboard layout
+- Realistic AML/KYC business data structure
 
 ## Tech stack
 - Frontend: React + Vite
 - Backend: Node.js + Express
-- Data: JSON mock data
+- Visualization: Recharts
 - Styling: Custom CSS
-- Charts: Recharts
+- Data: Mock JSON-based API
 
 ## Project structure
 
 ```text
 compliance-kpi-sla-tracker/
 ├── frontend/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── styles.css
 │   ├── index.html
 │   ├── package.json
-│   ├── vite.config.js
-│   └── src/
-│       ├── App.jsx
-│       ├── main.jsx
-│       └── styles.css
+│   └── vite.config.js
 ├── backend/
-│   ├── package.json
+│   ├── data/
+│   │   └── mockData.js
 │   ├── server.js
-│   └── data/
-│       └── mockData.js
+│   └── package.json
 ├── .gitignore
 ├── README.md
 └── LICENSE
 ```
 
+## Dashboard overview
+This solution is designed to look like a real regulatory operations dashboard with focus areas such as:
+
+- CDD turnaround
+- Sanctions screening coverage
+- ODD renewal compliance
+- Investigation SLA tracking
+- Case aging and escalations
+- Weekly reporting performance
+
 ## Getting started
 
-### 1) Clone the repo
+### 1) Install dependencies
 
-```bash
-git clone https://github.com/Vickum24/compliance-kpi-sla-tracker.git
-cd compliance-kpi-sla-tracker
-```
-
-### 2) Start the backend
-
+#### Backend
 ```bash
 cd backend
 npm install
-npm run dev
 ```
 
-The backend will run on:
-
-```text
-http://localhost:5000
-```
-
-### 3) Start the frontend
-
-Open a second terminal and run:
-
+#### Frontend
 ```bash
 cd frontend
 npm install
+```
+
+### 2) Run the backend
+```bash
+cd backend
 npm run dev
 ```
 
-The frontend will run on:
+### 3) Run the frontend
+Open a second terminal:
+```bash
+cd frontend
+npm run dev
+```
 
+The frontend should run at:
 ```text
 http://localhost:5173
 ```
 
-## API endpoints
+The backend API should run at:
+```text
+http://localhost:5000/api/dashboard
+```
 
-### Dashboard summary
+## Main API endpoints
+
 ```http
 GET /api/dashboard
-```
-
-### Alerts
-```http
 GET /api/alerts
-```
-
-### Daily reporting data
-```http
 GET /api/reporting
 ```
 
-## Sample metrics included
+## Sample KPI areas included
 - CDD turnaround time
-- ODD review completion
-- Transaction monitoring aging
-- Sanctions screening rate
-- Investigations completed within SLA
-- SLA breaches by team
-- Escalated high-risk alerts
+- ODD review compliance
+- Sanctions screening completion
+- Alert backlog aging
+- Investigation SLA compliance
+- Escalations and exceptions
+- Operational performance trends
 
-## Example dashboard view
-This dashboard is designed to mimic an operational compliance reporting portal used by AML/KYC teams.
+## Portfolio use case
+This project is ideal for showcasing:
+
+- AML/KYC domain understanding
+- Dashboard design and data storytelling
+- Analytical thinking and operational awareness
+- Ability to turn compliance workflows into clear reporting systems
 
 ## Future enhancements
-- Real database integration
-- Authentication for role-based access
-- CSV import and export
-- PDF report generation
-- Email/SMS alert notifications
-- Advanced drill-down analysis for individual teams or clients
-
-## Portfolio use cases
-This project can be used to showcase:
-- AML compliance operations knowledge
-- KPI reporting and SLA tracking experience
-- Ability to translate compliance needs into business dashboards
-- Real-world problem solving in risk and control environments
+- role-based user authentication
+- CSV export and PDF report generation
+- database integration with PostgreSQL or MongoDB
+- advanced filtering by team, region, and risk type
+- alert notification workflow
+- live drill-down reporting for specific client portfolios
 
 ## Author
 Vickum24
 
 ## License
-This project is open source for portfolio and learning purposes.
+This project is for portfolio and learning use.

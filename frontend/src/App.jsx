@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import {
-  AreaChart,
   Area,
-  BarChart,
+  AreaChart,
   Bar,
+  BarChart,
   CartesianGrid,
+  Cell,
   Legend,
   Line,
   LineChart,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -49,14 +52,15 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div className="loading">Loading dashboard...</div>;
+    return <div className="loading">Loading compliance dashboard...</div>;
   }
 
   if (!dashboard) {
     return <div className="loading">Unable to load compliance data.</div>;
   }
 
-  const { summaryCards, teamPerformance, weeklyTrend, slaHealth } = dashboard;
+  const { summaryCards, teamPerformance, weeklyTrend, slaHealth, workflowStatus, regionalRisk, backlog } = dashboard;
+  const pieColors = ['#2d6cdf', '#1aa77a', '#f29f05', '#d94b55'];
 
   return (
     <div className="app-shell">
@@ -74,7 +78,7 @@ function App() {
           <button className="nav-item">KPI Dashboard</button>
           <button className="nav-item">SLA Tracker</button>
           <button className="nav-item">Alerts</button>
-          <button className="nav-item">Reports</button>
+          <button className="nav-item">Portfolio</button>
         </nav>
 
         <div className="sidebar-card">
@@ -95,6 +99,13 @@ function App() {
             <button className="primary-btn">Generate report</button>
           </div>
         </header>
+
+        <div className="filters-row">
+          <span className="chip active">This month</span>
+          <span className="chip">Team view</span>
+          <span className="chip">Regions</span>
+          <span className="chip">Escalations</span>
+        </div>
 
         <section className="kpi-grid">
           {summaryCards.map((card) => (
@@ -118,7 +129,7 @@ function App() {
         <section className="charts-grid">
           <div className="panel chart-panel large-panel">
             <div className="panel-header">
-              <h3>Weekly performance trend</h3>
+              <h3>Weekly operating trend</h3>
               <span className="muted">Last 7 days</span>
             </div>
             <ResponsiveContainer width="100%" height={260}>
@@ -140,17 +151,16 @@ function App() {
 
           <div className="panel chart-panel">
             <div className="panel-header">
-              <h3>SLA health</h3>
-              <span className="muted">By team</span>
+              <h3>Regional risk heat</h3>
+              <span className="muted">Risk score</span>
             </div>
             <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={slaHealth}>
+              <BarChart data={regionalRisk}>
                 <CartesianGrid stroke="#e7ebf2" strokeDasharray="3 3" />
-                <XAxis dataKey="team" />
-                <YAxis />
+                <XAxis dataKey="region" />
+                <YAxis domain={[0, 100]} />
                 <Tooltip />
-                <Legend />
-                <Bar dataKey="sla" fill="#1aa77a" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="score" fill="#1aa77a" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -160,7 +170,7 @@ function App() {
           <div className="panel">
             <div className="panel-header">
               <h3>Team performance</h3>
-              <span className="muted">Current cycle</span>
+              <span className="muted">Current month</span>
             </div>
             <div className="table-wrap">
               <table>
@@ -210,23 +220,63 @@ function App() {
           </div>
         </section>
 
-        <section className="panel full-width-panel">
-          <div className="panel-header">
-            <h3>Operational reporting</h3>
-            <span className="muted">Month to date</span>
+        <section className="final-grid">
+          <div className="panel">
+            <div className="panel-header">
+              <h3>Workflow status</h3>
+              <span className="muted">Completion %</span>
+            </div>
+            <div className="progress-stack">
+              {workflowStatus.map((item) => (
+                <div key={item.label} className="progress-item">
+                  <div className="progress-meta">
+                    <span>{item.label}</span>
+                    <span>{item.value}%</span>
+                  </div>
+                  <div className="mini-progress">
+                    <span style={{ width: `${item.value}%`, background: item.color }} />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={reporting}>
-              <CartesianGrid stroke="#e7ebf2" strokeDasharray="3 3" />
-              <XAxis dataKey="label" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="screening" stroke="#2d6cdf" strokeWidth={2} />
-              <Line type="monotone" dataKey="investigation" stroke="#1aa77a" strokeWidth={2} />
-              <Line type="monotone" dataKey="monitoring" stroke="#f29f05" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
+
+          <div className="panel">
+            <div className="panel-header">
+              <h3>Backlog overview</h3>
+              <span className="muted">Action needed</span>
+            </div>
+            <div className="backlog-list">
+              {backlog.map((item) => (
+                <div key={item.name} className="backlog-item">
+                  <div>
+                    <strong>{item.name}</strong>
+                    <p>{item.count} items · Due in {item.due}</p>
+                  </div>
+                  <span className={`severity ${item.severity.toLowerCase()}`}>{item.severity}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="panel">
+            <div className="panel-header">
+              <h3>Operational reporting</h3>
+              <span className="muted">Month to date</span>
+            </div>
+            <ResponsiveContainer width="100%" height={220}>
+              <LineChart data={reporting}>
+                <CartesianGrid stroke="#e7ebf2" strokeDasharray="3 3" />
+                <XAxis dataKey="label" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="screening" stroke="#2d6cdf" strokeWidth={2} />
+                <Line type="monotone" dataKey="investigation" stroke="#1aa77a" strokeWidth={2} />
+                <Line type="monotone" dataKey="monitoring" stroke="#f29f05" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </section>
       </main>
     </div>

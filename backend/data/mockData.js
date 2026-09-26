@@ -6,7 +6,7 @@ const summaryCards = [
     progress: 82,
     trend: '+12%',
     trendDirection: 'up',
-    subtitle: 'Average time to complete customer due diligence review.'
+    subtitle: 'Average customer due diligence review time.'
   },
   {
     title: 'Sanctions Coverage',
@@ -15,16 +15,16 @@ const summaryCards = [
     progress: 96,
     trend: '+4%',
     trendDirection: 'up',
-    subtitle: 'Percentage of customers screened within policy timeline.'
+    subtitle: 'Customers screened within policy timeframe.'
   },
   {
-    title: 'Transaction Alerts',
+    title: 'Open Alerts',
     value: '84',
     target: '90',
     progress: 72,
     trend: '-6%',
     trendDirection: 'down',
-    subtitle: 'Open alerts awaiting investigation and disposition.'
+    subtitle: 'Alerts pending review or escalation.'
   },
   {
     title: 'SLA Compliance',
@@ -33,7 +33,7 @@ const summaryCards = [
     progress: 94,
     trend: '+3%',
     trendDirection: 'up',
-    subtitle: 'Percentage of investigations completed within agreed SLA.'
+    subtitle: 'Investigations completed within agreed SLAs.'
   }
 ];
 
@@ -102,11 +102,35 @@ const reporting = [
   { label: 'Jun', screening: 94, investigation: 95, monitoring: 88 }
 ];
 
+const workflowStatus = [
+  { label: 'CDD Review', value: 84, color: '#2d6cdf' },
+  { label: 'Sanctions Screening', value: 96, color: '#1aa77a' },
+  { label: 'Escalations', value: 68, color: '#f29f05' },
+  { label: 'Investigations', value: 79, color: '#d94b55' }
+];
+
+const regionalRisk = [
+  { region: 'EMEA', score: 76 },
+  { region: 'APAC', score: 68 },
+  { region: 'Americas', score: 82 },
+  { region: 'UK', score: 88 }
+];
+
+const backlog = [
+  { name: 'High Risk Client Review', count: 18, due: '2 days', severity: 'Critical' },
+  { name: 'PEP Screening Review', count: 12, due: '4 days', severity: 'High' },
+  { name: 'ODD Renewals', count: 24, due: '5 days', severity: 'Medium' },
+  { name: 'Transaction Monitoring Cases', count: 16, due: '3 days', severity: 'High' }
+];
+
 module.exports = {
   summaryCards,
   teamPerformance,
   weeklyTrend,
   slaHealth,
   alerts,
-  reporting
+  reporting,
+  workflowStatus,
+  regionalRisk,
+  backlog
 };
